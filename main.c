@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 17:49:38 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/03 12:36:41 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/03 14:56:06 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,27 @@ int main(void)
 	lst = create_list();
 	set_index(lst);
 	set_decile(lst);
-	lst = push_swap(lst, &count);
-	printf("lst final------------\n");
-	ft_printlist_index(lst);
-	printf("%d coups !\n", count);
-}
-/*printf("liste ------------\n");
+	printf("liste ------------\n");
 	ft_printlist(lst);
 	printf("index ------------\n");
 	ft_printlist_index(lst);
 	printf("decile------------\n");
-	ft_printlist_decile(lst);*/
+	ft_printlist_decile(lst);
+	lst = push_swap(lst, &count);
+	printf("lst final------------\n");
+	ft_printlist(lst);
+	printf("%d coups !\n", count);
+	ft_printlist_index(lst);
+}
+
 void	rra(t_list **lst_a, int *count)
 {
 	reverse_rotate(lst_a, count);
 	printf("rra\n");
 }
-void	rrb(t_list *lst_a, t_list *lst_b, int *count)
+void	rrb(t_list **lst_b, int *count)
 {
+	reverse_rotate(lst_b, count);
 	printf("rrb\n");
 }
 void	rrr(t_list *lst_a, t_list *lst_b, int *count)
@@ -49,8 +52,9 @@ void	ra(t_list **lst_a, int *count)
 	rotate(lst_a, count);
 	printf("ra\n");
 }
-void	rb(t_list *lst_a, t_list *lst_b, int *count)
+void	rb(t_list **lst_b, int *count)
 {
+	rotate(lst_b, count);
 	printf("rb\n");
 }
 void	rr(t_list *lst_a, t_list *lst_b, int *count)
@@ -93,7 +97,6 @@ void	push_to_b(t_list **lst_a, t_list **lst_b, t_nbr to_push, int *count)
 
 void	repush_to_a(t_list **lst_a, t_list **lst_b, t_nbr to_push, int *count)
 {
-	printf("sens = %d, nrotate = %d\n", to_push.info, to_push.rotate);
 	if (to_push.info < 0)
 	{
 		while (to_push.rotate != 0)
@@ -127,8 +130,6 @@ t_list	*push_swap(t_list *lst_a,int *count)
 		{
 			to_push = set_closest_decile(lst_a, i);
 			push_to_b(&lst_a, &lst_b, to_push, count);
-			ft_printlist_index(lst_a);
-			ft_printlist_index(lst_b);
 		}
 		i++;
 	}
@@ -137,5 +138,6 @@ t_list	*push_swap(t_list *lst_a,int *count)
 		to_push = set_max(lst_b);
 		repush_to_a(&lst_a, &lst_b, to_push, count);
 	}
+	//ft_printlist_decile(lst_b);
 	return (lst_a);
 }

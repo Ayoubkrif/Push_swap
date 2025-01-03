@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 14:03:17 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/03 12:05:57 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/03 15:16:55 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,26 +154,34 @@ t_nbr	set_max(t_list *lst)
 {
 	t_list	*current;
 	t_nbr	max;
-	int i;
+	int		stack_pos;
+	int		i;
 
-	max.index = 0;
-    max.nbr = lst->nbr;
+	stack_pos = 0;
+	i = 0;
     current = lst;
-	max.info = 1;
+	max.index = current->index;
     while (current)
 	{
-		if (max.nbr < current->nbr)
+		if (max.index < current->index)
 		{
-			max.index = i;
+			stack_pos = i;
+			max.index = current->index;
 			max.nbr = current->nbr;
 		}
 		i++;
 		current = current->next;
     }
-	if (max.index < (ft_lstsize(lst) / 2)) 
-		max.rotate = max.index;
+	if (stack_pos <= (ft_lstsize(lst) / 2))
+	{
+		max.rotate = stack_pos;
+		max.info = 1;
+	}
 	else
-		max.rotate = ft_lstsize(lst) - max.index;
+	{
+		max.rotate = ft_lstsize(lst) - stack_pos;
+		max.info = -1;
+	}
 	return (max);
 }
 
