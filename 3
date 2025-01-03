@@ -1,0 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/10 17:49:38 by aykrifa           #+#    #+#             */
+/*   Updated: 2024/12/10 17:58:53 by aykrifa          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+t_list	*ft_lstnew(int nb)
+{
+	t_list	*newlst;
+
+	newlst = (t_list *)malloc(sizeof(t_list));
+	if (!newlst)
+		return (NULL);
+	newlst->next = NULL;
+	newlst->nbr = nb;
+	return (newlst);
+}
+
+int	main(void)
+{
+	t_list	*head;
+
+	head = ft_lstnew(20);
+	ft_printlist(head)
+	ft_lstadd_back(&head, ft_lstnew(15));
+	ft_lstadd_back(&head, ft_lstnew(5));
+	ft_lstadd_back(&head, ft_lstnew(1));
+	ft_lstadd_back(&head, ft_lstnew(105));
+	ft_lstadd_back(&head, ft_lstnew(30));
+	ft_lstadd_back(&head, ft_lstnew(12));
+	ft_printlist(head);
+	printf("\n========================\n");
+	lst_swap(&head);
+	ft_printlist(head);
+	printf("\n========================\n");
+	rotate(&head);
+	ft_printlist(head);
+	printf("\n========================\n");
+	reverse_rotate(&head);
+	ft_printlist(head);
+	printf("\n========================\n");
+}
