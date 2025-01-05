@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:41:27 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/03 15:21:16 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/04 17:39:07 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_lstadd_front(t_list **lst, t_list *node)
 		node->prev = NULL;
 		return ;
 	}
+	(*lst)->prev = node;
 	node->next = *lst;
 	*lst = node;
 	node->prev = NULL;
@@ -37,6 +38,7 @@ void	ft_lstadd_back(t_list **lst, t_list *node)
 	{
 		*lst = node;
 		(*lst)->next = NULL;
+		(*lst)->prev = NULL;
 		return ;
 	}
 	while (current->next != NULL)

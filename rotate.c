@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 17:09:28 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/03 14:54:57 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/04 17:37:01 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 void	rotate(t_list **lst, int *count)
 {
 	t_list	*temp;
-
+	if (ft_lstsize(*lst) == 1)
+		return ;
 	temp = (*lst);
 	*lst = (*lst)->next;
+	if (*lst)
+		(*lst)->prev = NULL;
 	temp->next = NULL;
 	ft_lstadd_back(lst, temp);
 	*count += 1;

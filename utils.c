@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 14:03:17 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/03 15:16:55 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/04 17:40:28 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ t_nbr	set_closest_decile(t_list *lst, int find)
 	t_nbr	reverse_rotate;
 	t_nbr	rotate;
 
-	rotate = set_rotate_closest_decile(lst, find);
 	reverse_rotate = set_reverse_closest_decile(lst, find);
+	rotate = set_rotate_closest_decile(lst, find);
 	if (reverse_rotate.rotate < rotate.rotate)
 		return (reverse_rotate);
 	return (rotate);
