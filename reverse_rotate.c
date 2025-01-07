@@ -1,45 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   reverse_rotate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/10 17:34:59 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/07 09:27:39 by aykrifa          ###   ########.fr       */
+/*   Created: 2025/01/07 09:28:51 by aykrifa           #+#    #+#             */
+/*   Updated: 2025/01/07 09:30:01 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_swap(int *a, int *b)
+void	reverse_rotate(t_list **lst, int *count)
 {
-	int	temp;
+	t_list	*current;
+	t_list	*temp;
 
-	temp = *b;
-	*b = *a;
-	*a = temp;
-}
-
-void	lst_swap(t_list **lst, int *count)
-{
+	current = *lst;
 	if (ft_lstsize(*lst) == 1)
 		return ;
-	ft_swap(&(*lst)->nbr, &(*lst)->next->nbr);
+	while (current->next->next)
+		current = current->next;
+	temp = current->next;
+	current->next = NULL;
+	ft_lstadd_front(lst, temp);
 	*count += 1;
 }
 
-void	sa(t_list *lst_a, t_list *lst_b, int *count)
+void	rra(t_list **lst_a, int *count)
 {
-	printf("sa\n");
+	reverse_rotate(lst_a, count);
+	printf("rra\n");
 }
 
-void	sb(t_list *lst_a, t_list *lst_b, int *count)
+void	rrb(t_list **lst_b, int *count)
 {
-	printf("sb\n");
+	reverse_rotate(lst_b, count);
+	printf("rrb\n");
 }
 
-void	ss(t_list *lst_a, t_list *lst_b, int *count)
+void	rrr(t_list *lst_a, t_list *lst_b, int *count)
 {
-	printf("ss\n");
+	printf("rrr\n");
 }

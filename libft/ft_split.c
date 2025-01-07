@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 14:44:06 by ayoub             #+#    #+#             */
-/*   Updated: 2024/12/14 22:16:18 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/07 11:10:45 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,33 +110,4 @@ char	**ft_split(const char *s, char c)
 	filldest(&dest, s, c);
 	dest[count_words(s, c)] = 0;
 	return (dest);
-}
-void    freelaheap(char **dest, int size);
-
-int    main(int c, char **v)
-{
-    (void) c;
-    int    size;
-    char **dest;
-    int    i;
-
-    dest = ft_split(NULL, v[2][0]);
-    //printf("nombre de mots : %d\n", size);
-    i = 0;
-    while (dest[i])
-    {
-        printf("%s\n", dest[i]);
-        i++;
-    }
-    freelaheap(dest, i);
-    return (0);
-}
-void    freelaheap(char **dest, int size)
-{
-    while (size >= 0)
-    {
-        free(dest[size]);
-        size--;
-    }
-    free(dest);
 }

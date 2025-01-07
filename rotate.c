@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 17:09:28 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/04 17:37:01 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/07 09:32:58 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	rotate(t_list **lst, int *count)
 {
 	t_list	*temp;
+
 	if (ft_lstsize(*lst) == 1)
 		return ;
 	temp = (*lst);
@@ -26,18 +27,19 @@ void	rotate(t_list **lst, int *count)
 	*count += 1;
 }
 
-void	reverse_rotate(t_list **lst, int *count)
+void	ra(t_list **lst_a, int *count)
 {
-	t_list	*current;
-	t_list	*temp;
+	rotate(lst_a, count);
+	printf("ra\n");
+}
 
-	current = *lst;
-	if (ft_lstsize(*lst) == 1)
-		return ;
-	while (current->next->next)
-		current = current->next;
-	temp = current->next;
-	current->next = NULL;
-	ft_lstadd_front(lst, temp);
-	*count += 1;
+void	rb(t_list **lst_b, int *count)
+{
+	rotate(lst_b, count);
+	printf("rb\n");
+}
+
+void	rr(t_list *lst_a, t_list *lst_b, int *count)
+{
+	printf("rr\n");
 }

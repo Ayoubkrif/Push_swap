@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:41:27 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/04 17:39:07 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/07 09:35:51 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ void	ft_lstadd_back(t_list **lst, t_list *node)
 
 t_list	*ft_lstlast(t_list *lst)
 {
+	t_list	*current;
+
 	if (!lst)
 		return (lst);
-	t_list *current = lst;
+	current = lst;
 	while (current->next)
 		current = current->next;
 	return (current);
@@ -122,9 +124,6 @@ t_list	*ft_lstnew(int nb)
 	newlst->prev = NULL;
 	return (newlst);
 }
-
-
-
 
 t_list	*ft_lstdup(t_list *lst)
 {

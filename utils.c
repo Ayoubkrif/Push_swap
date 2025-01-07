@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 14:03:17 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/04 17:40:28 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/07 17:14:52 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,18 @@ void	set_decile(t_list *lst)
  * 66 - 82
  * 83 - 99
 */
-int	decile_finder(t_list *lst, int find)
+int	decile_counter(t_list *lst, int find)
 {
+	int	n;
+
+	n = 0;
 	while (lst)
 	{
 		if (lst->decile == find)
-			return (1);
+			n++;
 		lst = lst->next;
 	}
-	return (0);
+	return (n);
 }
 
 t_nbr	set_closest_decile(t_list *lst, int find)
@@ -67,7 +70,7 @@ t_nbr	set_reverse_closest_decile(t_list *lst, int find)
 	t_nbr	reverse_rotate;
 	t_list	*current;
 	int		nrotate;
-	
+
 	current = ft_lstlast(lst);
 	nrotate = 1;
 	while (current->decile != find)
@@ -77,7 +80,7 @@ t_nbr	set_reverse_closest_decile(t_list *lst, int find)
 	}
 	reverse_rotate.index = current->index;
 	reverse_rotate.rotate = nrotate;
-	reverse_rotate.info = -1;//reverse rotate.
+	reverse_rotate.info = -1;
 	reverse_rotate.nbr = current->nbr;
 	return (reverse_rotate);
 }
@@ -87,7 +90,7 @@ t_nbr	set_rotate_closest_decile(t_list *lst, int find)
 	t_nbr	rotate;
 	t_list	*current;
 	int		nrotate;
-	
+
 	current = lst;
 	nrotate = 0;
 	while (current->decile != find)
@@ -97,7 +100,7 @@ t_nbr	set_rotate_closest_decile(t_list *lst, int find)
 	}
 	rotate.index = current->index;
 	rotate.rotate = nrotate;
-	rotate.info = 1;//reverse rotate.
+	rotate.info = 1;
 	rotate.nbr = current->nbr;
 	return (rotate);
 }
@@ -127,13 +130,13 @@ t_nbr	set_min(t_list	*lst)
 {
 	t_list	*current;
 	t_nbr	min;
-	int i;
+	int		i;
 
 	min.index = 0;
-    min.nbr = lst->nbr;
-    current = lst;
+	min.nbr = lst->nbr;
+	current = lst;
 	min.info = 0;
-    while (current)
+	while (current)
 	{
 		if (min.nbr > current->nbr)
 		{
@@ -142,7 +145,7 @@ t_nbr	set_min(t_list	*lst)
 		}
 		i++;
 		current = current->next;
-    }
+	}
 	if (min.index < (ft_lstsize(lst) / 2))
 		min.rotate = min.index;
 	else
@@ -159,11 +162,12 @@ t_nbr	set_max(t_list *lst)
 
 	stack_pos = 0;
 	i = 0;
-    current = lst;
+	current = lst;
 	max.index = current->index;
-    while (current)
+	max.nbr = current->nbr;
+	while (current)
 	{
-		if (max.index < current->index)
+		if (max.nbr < current->nbr)
 		{
 			stack_pos = i;
 			max.index = current->index;
@@ -171,7 +175,7 @@ t_nbr	set_max(t_list *lst)
 		}
 		i++;
 		current = current->next;
-    }
+	}
 	if (stack_pos <= (ft_lstsize(lst) / 2))
 	{
 		max.rotate = stack_pos;
@@ -205,7 +209,8 @@ t_nbr	set_closest(t_list	*lst)
 		return (max);
 	}
 }
-int is_reverse_sorted(t_list *lst)
+
+int	is_reverse_sorted(t_list *lst)
 {
 	while (lst->next)
 	{
@@ -217,7 +222,7 @@ int is_reverse_sorted(t_list *lst)
 	return (1);
 }
 
-int is_sorted(t_list *lst)
+int	is_sorted(t_list *lst)
 {
 	while (lst->next)
 	{
@@ -225,50 +230,33 @@ int is_sorted(t_list *lst)
 			return (0);
 		lst = lst->next;
 	}
-	//printf("is sorted !\n");
 	return (1);
 }
 
-int is_ordered(t_list *lst)
+int	is_ordered(t_list *lst)
 {
-	t_nbr	min;
-	int		i;
-	t_list *temp;
+	t_nbr	max;
+	t_list	*current;
+	t_list	*last_node;
 
-	printf("is ordered ? :");
-	ft_printlist(lst);
-	i = 0;
-	temp = lst;
-	min = set_min(temp);
-	/*while (temp->nbr != min.nbr)
-		rotate(&temp, &i);*/
-	printf("fin\n");
-	if (!is_sorted(temp))
-		return(0);
-	printf("clock ordered !\n");
-	return (1);
-}
-
-int find_median(t_list *lst)
-{
-	int i;
-	t_list *current;
-	int median;
-
-	i = ft_lstsize(lst);
-	while (current)
-	{
-
+	last_node = ft_lstlast(lst);
+	current = lst;
+	max = set_max(lst);
+	lst->prev = last_node;
+	last_node->next = lst;
+	while (current->nbr != max.nbr)
 		current = current->next;
-	}
-	return (1);
-}
-
-void	set_index_to_zero(t_list *lst)
-{
-	while (lst)
+	while (current->prev->nbr != max.nbr)
 	{
-		lst->index = 0;
-		lst = lst->next;
+		if (current->nbr < current->prev->nbr)
+		{
+			lst->prev = NULL;
+			last_node->next = NULL;
+			return (0);
+		}
+		current = current->prev;
 	}
+	lst->prev = NULL;
+	last_node->next = NULL;
+	return (1);
 }

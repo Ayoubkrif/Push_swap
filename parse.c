@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:39:12 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/03 15:23:59 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/07 09:33:55 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_list	*create_list(void)
 	i = 0;
 	lst = NULL;
 	str = get_next_line(fd);
-	
 	while (str[i])
 	{
 		ft_lstadd_back(&lst, ft_lstnew(ft_atoi(&str[i])));
