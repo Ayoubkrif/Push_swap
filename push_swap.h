@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:24:14 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/11 17:05:58 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/11 18:39:46 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 typedef struct s_cost
 {
-	int	up;
-	int	down;
+	int	ra;
+	int	rb;
 }t_cost;
 
 typedef struct s_list
@@ -29,7 +29,9 @@ typedef struct s_list
 	int				nbr;
 	int				index;
 	int				pos;
+	int				total_cost;
 	t_cost			cost;
+	int				info;
 	struct s_list	*next;
 	struct s_list	*prev;
 }t_list;
@@ -59,12 +61,12 @@ int		decile_counter(t_list *lst, int find);
 
 void	pa(t_list	**lst_a, t_list	**lst_b, int *count);
 void	pb(t_list	**lst_a, t_list	**lst_b, int *count);
-void	ra(t_list **lst_a, int *count);
-void	rb(t_list **lst_b, int *count);
-void	rr(t_list **lst_a, t_list **lst_b, int *count);
-void	rra(t_list **lst_a, int *count);
-void	rrb(t_list **lst_b, int *count);
-void	rrr(t_list **lst_a, t_list **lst_b, int *count);
+void	ra(t_list **lst_a, int *count, t_cost *instruction);
+void	rb(t_list **lst_b, int *count, t_cost *instruction);
+void	rr(t_list **lst_a, t_list **lst_b, int *count, t_cost *instruction);
+void	rra(t_list **lst_a, int *count, t_cost *instruction);
+void	rrb(t_list **lst_b, int *count, t_cost *instruction);
+void	rrr(t_list **lst_a, t_list **lst_b, int *count, t_cost *instruction);
 void	sa(t_list **lst_a, int *count);
 void	sb(t_list **lst_a, int *count);
 void	ss(t_list **lst_a, t_list **lst_b, int *count);
