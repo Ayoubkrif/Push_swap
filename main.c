@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 17:49:38 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/11 16:29:34 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/11 16:39:57 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	main(void)
 	ft_swaplst(&lst, lst, ft_lstlast(lst));
 	ft_printlist(lst);
 }
+
 int	get_median(t_list *lst_a, int size)
 {
 	set_index(lst_a);
@@ -56,12 +57,11 @@ int	get_median(t_list *lst_a, int size)
 	return (lst_a->index);
 }
 
-void	push_to_b(t_list **lst_a, t_list **lst_b, int *count)
+void	push_to_b(t_list **lst_a, t_list **lst_b, int *count, int size)
 {
 	int	median;
 	int	size;
 
-	size = ft_lstsize(*lst_a);
 	median = get_median(*lst_a, size);
 	while (size > 3)
 	{
@@ -72,47 +72,30 @@ void	push_to_b(t_list **lst_a, t_list **lst_b, int *count)
 	}
 }
 
-void	repush_to_a(t_list **lst_a, t_list **lst_b, t_nbr to_push, int *count)
+void	repush_to_a(t_list **lst_a, t_list **lst_b, int *count)
 {
-	if (to_push.info < 0)
-	{
-		while (to_push.rotate != 0)
-		{
-			rrb(lst_b, count);
-			to_push.rotate--;
-		}
-	}
-	else
-	{
-		while (to_push.rotate != 0)
-		{
-			rb(lst_b, count);
-			to_push.rotate--;
-		}
-	}
-	pa(lst_a, lst_b, count);
+	
 }
 
-t_list	*push_swap(t_list *lst_a, int *count)
+t_list	*push_swap(t_list *lst_a, int *count, int size)
 {
 	t_list	*lst_b;
-	t_nbr	to_push;
-	int		i;
+	t_nbr	min;
 
 	lst_b = NULL;
-	push_to_b(&lst_a, &lst_b, count);
+	push_to_b(&lst_a, &lst_b, count, size);
+	if (!is_circ_sorted(lst_a))
+		sa(&lst_a, count);
 	while (lst_b)
-	{
-		repush_to_a(&lst_a, &lst_b, *count);
-	}
-	ft_printlist(lst_b);
-	printf("%d pour push to b\n", *count);
+		repush_to_a(&lst_a, &lst_b, count);
 	return (lst_a);
-	while (lst_b)
-	{
-		to_push = set_max(lst_b);
-		repush_to_a(&lst_a, &lst_b, to_push, count);
-	}
+	min = set_min(lst_a);
+	if (min.rotate && (min.info == 1 || size > 2))
+		while (!is_sorted(lst_a))
+			ra(&lst_a, count);
+	else if (min.rotate)
+		while (!is_sorted(lst_a))
+			rra(&lst_a, count);
 	return (lst_a);
 }
 

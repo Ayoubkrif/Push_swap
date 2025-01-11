@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:24:14 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/10 16:46:22 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/11 16:37:12 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_nbr
 	int	info;
 }t_nbr;
 
-//t_nbr	set_min(t_list	*lst);
+t_nbr	set_min(t_list	*lst);
 t_nbr	set_max(t_list *lst);
 //t_nbr	set_closest(t_list	*lst);
 t_nbr	set_closest_decile(t_list *lst, int find);
