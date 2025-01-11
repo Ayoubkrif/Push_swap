@@ -6,12 +6,14 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 17:49:38 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/07 17:12:46 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/11 16:29:34 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
+
+t_list	*sort3(t_list *lst, int *count);
 
 int	main(void)
 {
@@ -36,28 +38,38 @@ int	main(void)
 	ft_printlist_index(lst);
 	printf("decile------------\n");
 	ft_printlist_decile(lst);*/
-	printf("%d\n", is_ordered(lst));
+	lst = sort3(lst, &count);
+	ft_printlist(lst);
+	printf("%d coups !\n", count);
+	ft_lstadd_back(&lst, ft_lstnew(5));
+	ft_swaplst(&lst, lst, ft_lstlast(lst));
+	ft_printlist(lst);
+}
+int	get_median(t_list *lst_a, int size)
+{
+	set_index(lst_a);
+	if (size > 100)
+		while (lst_a->index != size / 2)
+			lst_a = lst_a->next;
+	else
+		return (-1);
+	return (lst_a->index);
 }
 
-void	push_to_b(t_list **lst_a, t_list **lst_b, t_nbr to_push, int *count)
+void	push_to_b(t_list **lst_a, t_list **lst_b, int *count)
 {
-	if (to_push.info < 0)
+	int	median;
+	int	size;
+
+	size = ft_lstsize(*lst_a);
+	median = get_median(*lst_a, size);
+	while (size > 3)
 	{
-		while (to_push.rotate != 0)
-		{
-			rra(lst_a, count);
-			to_push.rotate--;
-		}
+		pb(lst_a, lst_b, count);
+		if ((*lst_b)->index > median)
+			rb(lst_b, count);
+		size--;
 	}
-	else
-	{
-		while (to_push.rotate != 0)
-		{
-			ra(lst_a, count);
-			to_push.rotate--;
-		}
-	}
-	pb(lst_a, lst_b, count);
 }
 
 void	repush_to_a(t_list **lst_a, t_list **lst_b, t_nbr to_push, int *count)
@@ -88,15 +100,10 @@ t_list	*push_swap(t_list *lst_a, int *count)
 	int		i;
 
 	lst_b = NULL;
-	i = 1;
-	while (i <= 6)
+	push_to_b(&lst_a, &lst_b, count);
+	while (lst_b)
 	{
-		while (decile_counter(lst_a, i) != 1)
-		{
-			to_push = set_closest_decile(lst_a, i);
-			push_to_b(&lst_a, &lst_b, to_push, count);
-		}
-		i++;
+		repush_to_a(&lst_a, &lst_b, *count);
 	}
 	ft_printlist(lst_b);
 	printf("%d pour push to b\n", *count);
@@ -105,6 +112,23 @@ t_list	*push_swap(t_list *lst_a, int *count)
 	{
 		to_push = set_max(lst_b);
 		repush_to_a(&lst_a, &lst_b, to_push, count);
+	}
+	return (lst_a);
+}
+
+t_list	*bubble_sorting(t_list *lst_a, int *count)
+{
+	t_nbr	max;
+	t_list	*lst_b;
+
+	max = set_max(lst_a);
+	while (!is_circ_sorted(lst_a))
+	{
+		if (lst_a->nbr > lst_a->next->nbr && lst_a->nbr != max.nbr)
+		{
+			sa(&lst_a, count);
+		}
+		ra(&lst_a, count);
 	}
 	return (lst_a);
 }

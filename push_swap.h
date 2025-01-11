@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:24:14 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/07 15:04:59 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/10 16:46:22 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_list
 	int				nbr;
 	int				index;
 	int				decile;
+	int				pos;
 	struct s_list	*next;
 	struct s_list	*prev;
 }t_list;
@@ -46,24 +47,27 @@ void	set_decile(t_list *lst);
 
 int		is_reverse_sorted(t_list *lst);;
 int		is_sorted(t_list *lst);
-int		is_ordered(t_list *lst);
+int		is_circ_sorted(t_list *lst);
 //int		find_median(t_list *lst);
 int		decile_counter(t_list *lst, int find);
 
 void	pa(t_list	**lst_a, t_list	**lst_b, int *count);
 void	pb(t_list	**lst_a, t_list	**lst_b, int *count);
-void	rotate(t_list **lst, int *count);
 void	ra(t_list **lst_a, int *count);
 void	rb(t_list **lst_b, int *count);
-//void	rr(t_list **lst_a, t_list **lst_b, int *count);
-void	reverse_rotate(t_list **lst, int *count);
+void	rr(t_list **lst_a, t_list **lst_b, int *count);
 void	rra(t_list **lst_a, int *count);
 void	rrb(t_list **lst_b, int *count);
-//void	rrr(t_list **lst_a, t_list **lst_b, int *count);
-void	lst_swap(t_list	**lst, int *count);
+void	rrr(t_list **lst_a, t_list **lst_b, int *count);
+void	sa(t_list **lst_a, int *count);
+void	sb(t_list **lst_a, int *count);
+void	ss(t_list **lst_a, t_list **lst_b, int *count);
+
+void	ft_swap(void *data1, void *data2, int size);
+void	ft_swaplst(t_list **head, t_list *node1, t_list *node2);
+void	*ft_memmove(void *dest, const void *src, size_t n);
 void	ft_lstadd_back(t_list **lst, t_list *node);
 void	ft_lstadd_front(t_list **lst, t_list *node);
-
 t_list	*ft_lstlast(t_list *lst);
 int		ft_lstsize(t_list *lst);
 void	ft_printlist(t_list *lst);
@@ -71,7 +75,6 @@ void	ft_printlist_index(t_list *lst);
 void	ft_printlist_decile(t_list *lst);
 t_list	*ft_lstnew(int nb);
 t_list	*create_list(void);
-t_list	*ft_lstdup(t_list *lst);
 
 t_list	*push_swap(t_list *lst_a, int *count);
 

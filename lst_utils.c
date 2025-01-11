@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:41:27 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/07 09:35:51 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/09 16:12:49 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,44 +73,6 @@ int	ft_lstsize(t_list *lst)
 	return (r);
 }
 
-void	ft_printlist(t_list *lst)
-{
-	while (lst)
-	{
-		printf("%d", lst->nbr);
-		if (lst->next)
-			printf(" =>");
-		lst = lst->next;
-	}
-	printf("\n");
-}
-
-void	ft_printlist_index(t_list *lst)
-{
-	if (!lst)
-		printf("empty!");
-	while (lst)
-	{
-		printf("%d", lst->index);
-		if (lst->next)
-			printf(" =>");
-		lst = lst->next;
-	}
-	printf("\n");
-}
-
-void	ft_printlist_decile(t_list *lst)
-{
-	while (lst)
-	{
-		printf("%d", lst->decile);
-		if (lst->next)
-			printf(" =>");
-		lst = lst->next;
-	}
-	printf("\n");
-}
-
 t_list	*ft_lstnew(int nb)
 {
 	t_list	*newlst;
@@ -123,55 +85,4 @@ t_list	*ft_lstnew(int nb)
 	newlst->next = NULL;
 	newlst->prev = NULL;
 	return (newlst);
-}
-
-t_list	*ft_lstdup(t_list *lst)
-{
-	t_list	*new;
-	t_list	*head;
-	int		fcontent;
-
-	fcontent = (lst->nbr);
-	head = ft_lstnew(fcontent);
-	if (!head)
-		return (NULL);
-	lst = lst->next;
-	while (lst)
-	{
-		fcontent = lst->nbr;
-		new = ft_lstnew(fcontent);
-		if (new == NULL)
-		{
-			return (NULL);
-		}
-		ft_lstadd_back(&head, new);
-		lst = lst->next;
-	}
-	return (head);
-}
-
-void	sort_list(t_list *head)
-{
-	t_list	*i;
-	t_list	*j;
-	int		temp;
-
-	if (head == NULL)
-		return ;
-	i = head;
-	while (i != NULL)
-	{
-		j = i->next;
-		while (j != NULL)
-		{
-			if (i->nbr > j->nbr)
-			{
-				temp = i->nbr;
-				i->nbr = j->nbr;
-				j->nbr = temp;
-			}
-			j = j->next;
-		}
-		i = i->next;
-	}
 }

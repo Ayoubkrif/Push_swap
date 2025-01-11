@@ -6,11 +6,12 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 14:03:17 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/07 17:14:52 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/11 16:06:14 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 void	set_decile(t_list *lst)
 {
@@ -105,10 +106,31 @@ t_nbr	set_rotate_closest_decile(t_list *lst, int find)
 	return (rotate);
 }
 
+int	is_unique(t_list *c1)
+{
+	t_list	*c2;
+
+	if (!c1->next)
+		return (1);
+	while (c1)
+	{
+		c2 = c1->next;
+		while (c2)
+		{
+			if (c2->nbr == c1->nbr)
+				return (0);
+			c2 = c2->next;
+		}
+		c1 = c1->next;
+	}
+	return (1);
+}
+
 void	set_index(t_list *c1)
 {
 	t_list	*c2;
 
+	
 	if (!c1->next)
 		return ;
 	while (c1)
@@ -126,69 +148,71 @@ void	set_index(t_list *c1)
 	}
 }
 
+t_nbr	fill_t_nbr(int nbr, int index, int rotate, int info)
+{
+	t_nbr	to_fill;
+
+	printf("nbr %d, index : %d , rotate %d info %d\n", nbr, index, rotate, info);
+	to_fill.nbr = nbr;
+	to_fill.index = index;
+	to_fill.rotate = rotate;
+	to_fill.info = info;
+	return (to_fill);
+}
+
 t_nbr	set_min(t_list	*lst)
 {
-	t_list	*current;
 	t_nbr	min;
-	int		i;
+	int		stack_pos;
+	int	lst_size;
 
-	min.index = 0;
+	printf("a\n");
+	lst_size = ft_lstsize(lst);
+	stack_pos = 0;
 	min.nbr = lst->nbr;
-	current = lst;
-	min.info = 0;
-	while (current)
+	while (lst)
 	{
-		if (min.nbr > current->nbr)
+		if (min.nbr >= lst->nbr)
 		{
-			min.index = i;
-			min.nbr = current->nbr;
+			if (stack_pos <= (lst_size / 2))
+				min = fill_t_nbr(lst->nbr, lst->index,
+						stack_pos, 1);
+			else
+				min = fill_t_nbr(lst->nbr, lst->index,
+						lst_size - stack_pos, -1);
 		}
-		i++;
-		current = current->next;
+		lst = lst->next;
+		stack_pos++;
 	}
-	if (min.index < (ft_lstsize(lst) / 2))
-		min.rotate = min.index;
-	else
-		min.rotate = ft_lstsize(lst) - min.index;
 	return (min);
 }
 
 t_nbr	set_max(t_list *lst)
 {
-	t_list	*current;
 	t_nbr	max;
 	int		stack_pos;
-	int		i;
+	int		lst_size;
 
 	stack_pos = 0;
-	i = 0;
-	current = lst;
-	max.index = current->index;
-	max.nbr = current->nbr;
-	while (current)
+	lst_size = ft_lstsize(lst);
+	max.nbr = lst->nbr;
+	while (lst)
 	{
-		if (max.nbr < current->nbr)
+		if (max.nbr <= lst->nbr)
 		{
-			stack_pos = i;
-			max.index = current->index;
-			max.nbr = current->nbr;
+			if (stack_pos <= (lst_size / 2))
+				max = fill_t_nbr(lst->nbr, lst->index,
+						stack_pos, 1);
+			else
+				max = fill_t_nbr(lst->nbr, lst->index,
+						lst_size - stack_pos, -1);
 		}
-		i++;
-		current = current->next;
-	}
-	if (stack_pos <= (ft_lstsize(lst) / 2))
-	{
-		max.rotate = stack_pos;
-		max.info = 1;
-	}
-	else
-	{
-		max.rotate = ft_lstsize(lst) - stack_pos;
-		max.info = -1;
+		lst = lst->next;
+		stack_pos++;
 	}
 	return (max);
 }
-
+/*
 t_nbr	set_closest(t_list	*lst)
 {
 	t_nbr	min;
@@ -208,7 +232,7 @@ t_nbr	set_closest(t_list	*lst)
 			max.rotate = max.rotate * (-1);
 		return (max);
 	}
-}
+}*/
 
 int	is_reverse_sorted(t_list *lst)
 {
@@ -218,7 +242,6 @@ int	is_reverse_sorted(t_list *lst)
 			return (0);
 		lst = lst->next;
 	}
-	printf("is reverse sorted !\n");
 	return (1);
 }
 
@@ -233,7 +256,7 @@ int	is_sorted(t_list *lst)
 	return (1);
 }
 
-int	is_ordered(t_list *lst)
+int	is_circ_sorted(t_list *lst)
 {
 	t_nbr	max;
 	t_list	*current;
@@ -243,7 +266,6 @@ int	is_ordered(t_list *lst)
 	current = lst;
 	max = set_max(lst);
 	lst->prev = last_node;
-	last_node->next = lst;
 	while (current->nbr != max.nbr)
 		current = current->next;
 	while (current->prev->nbr != max.nbr)
@@ -251,12 +273,75 @@ int	is_ordered(t_list *lst)
 		if (current->nbr < current->prev->nbr)
 		{
 			lst->prev = NULL;
-			last_node->next = NULL;
 			return (0);
 		}
 		current = current->prev;
 	}
 	lst->prev = NULL;
-	last_node->next = NULL;
 	return (1);
 }
+
+t_list	*sort3(t_list *lst, int *count)
+{
+	t_nbr	min;
+
+	if (!is_circ_sorted(lst))
+		sa(&lst, count);
+	min = set_min(lst);
+	while (min.rotate > 0)
+	{
+		if (min.info > 0)
+			ra(&lst, count);
+		else
+			rra(&lst, count);
+		min.rotate--;
+	}
+	return (lst);
+}
+
+void	set_pos(t_list *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst)
+	{
+		lst->pos = i;
+		lst = lst->next;
+		i++;
+	}
+}
+
+t_list	*order4(t_list *lst, int *count)
+{
+	t_nbr	min;
+	t_list	*last_node;
+	t_list	*current;
+
+	current = lst;
+	min = set_min(lst);
+	last_node = ft_lstlast(lst);
+	last_node->next = lst;
+	if (!is_circ_sorted(lst))
+	{
+		set_pos(lst);
+		while (current->nbr != min.nbr)
+			current = current->next;
+		while (current < current->next)
+			current = current->next;
+		if (current->pos != 3)
+		{
+			while (current->pos)
+			{
+				ra(&lst, count);
+				current->pos--;
+			}
+		}
+		else
+			rra(&lst, count);
+		sa(&lst, count);
+	}
+	return (lst);
+}
+
+t_list	*sort5()
