@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:24:14 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/11 16:37:12 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/11 17:05:58 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,18 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+typedef struct s_cost
+{
+	int	up;
+	int	down;
+}t_cost;
+
 typedef struct s_list
 {
 	int				nbr;
 	int				index;
-	int				decile;
 	int				pos;
+	t_cost			cost;
 	struct s_list	*next;
 	struct s_list	*prev;
 }t_list;
