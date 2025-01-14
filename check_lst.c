@@ -1,14 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   check_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 16:53:46 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/10 16:54:12 by aykrifa          ###   ########.fr       */
+/*   Created: 2025/01/14 13:09:42 by aykrifa           #+#    #+#             */
+/*   Updated: 2025/01/14 14:36:39 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
+
+int	is_reverse_sorted(t_list *lst)
+{
+	while (lst->next)
+	{
+		if (lst->nbr < lst->next->nbr)
+			return (0);
+		lst = lst->next;
+	}
+	return (1);
+}
+
+int	is_sorted(t_list *lst)
+{
+	while (lst->next)
+	{
+		if (lst->nbr > lst->next->nbr)
+			return (0);
+		lst = lst->next;
+	}
+	return (1);
+}
 
 int	is_circ_sorted(t_list *lst)
 {
@@ -33,36 +57,4 @@ int	is_circ_sorted(t_list *lst)
 	}
 	lst->prev = NULL;
 	return (1);
-}
-
-t_list	*order4(t_list *lst, int *count)
-{
-	t_nbr	min;
-	t_list	*last_node;
-	t_list	*current;
-
-	current = lst;
-	min = set_min(lst);
-	last_node = ft_lstlast(lst);
-	last_node->next = lst;
-	if (!is_circ_sorted(lst))
-	{
-		set_pos(lst);
-		while (current->nbr != min.nbr)
-			current = current->next;
-		while (current < current->next)
-			current = current->next;
-		if (current->pos != 3)
-		{
-			while (current->pos)
-			{
-				ra(&lst, count);
-				current->pos--;
-			}
-		}
-		else
-			rra(&lst, count);
-		sa(&lst, count);
-	}
-	return (lst);
 }

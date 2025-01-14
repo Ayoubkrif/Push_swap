@@ -6,36 +6,85 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:39:12 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/07 09:33:55 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/14 17:59:58 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "get_next_line.h"
-#include "libft.h"
 
-t_list	*create_list(void)
+static int	is_unique(t_list *c1)
 {
-	int		fd;
-	char	*str;
-	int		i;
-	t_list	*lst;
+	t_list	*c2;
 
-	fd = open("list.txt", O_RDONLY);
-	i = 0;
-	lst = NULL;
-	str = get_next_line(fd);
-	while (str[i])
+	if (!c1->next)
+		return (1);
+	while (c1)
 	{
-		ft_lstadd_back(&lst, ft_lstnew(ft_atoi(&str[i])));
-		while (str[i] == ' ')
-			i++;
-		if (str[i] == '-' || str[i] == '+')
-			i++;
-		while (ft_isdigit(str[i]))
-			i++;
+		c2 = c1->next;
+		while (c2)
+		{
+			if (c2->nbr == c1->nbr)
+				return (0);
+			c2 = c2->next;
+		}
+		c1 = c1->next;
 	}
-	close(fd);
-	free(str);
-	return (lst);
+	return (1);
+}
+
+static int	is_number(char *str)
+{
+	if (!(ft_isdigit(*str) || *str == '+' || *str == '-'))
+		return (0);
+	str++;
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
+int	parse_error(t_list **lst)
+{
+	if (*lst)
+		ft_lstclear(lst);
+	printf("error\n");
+	return (1);
+}
+
+static int	free_and_exit(int ret_val, int ac, char **arg)
+{
+	int	i;
+
+	i = 0;
+	if (ac == 2)
+	{
+		while (arg[i])
+			free(arg[i++]);
+		free(arg);
+	}
+	return (ret_val);
+}
+
+int	create_list(char **arg, t_list **lst, int ac)
+{
+	t_list	*node;
+	int		i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (!is_number(arg[i]))
+			return (free_and_exit(0, ac, arg));
+		node = ft_lstnew(ft_atoi(arg[i]));
+		if (!node)
+			return (free_and_exit(0, ac, arg));
+		ft_lstadd_back(lst, node);
+		i++;
+	}
+	if (!is_unique(*lst))
+		return (free_and_exit(0, ac, arg));
+	return (free_and_exit(1, ac, arg));
 }

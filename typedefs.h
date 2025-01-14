@@ -1,39 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_lst.c                                      :+:      :+:    :+:   */
+/*   typedefs.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 16:12:28 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/14 16:14:06 by aykrifa          ###   ########.fr       */
+/*   Created: 2025/01/14 14:01:57 by aykrifa           #+#    #+#             */
+/*   Updated: 2025/01/14 14:03:46 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef TYPEDEFS_H
+# define TYPEDEFS_H
 
-void	ft_printlist(t_list *lst)
+typedef struct s_cost
 {
-	while (lst)
-	{
-		printf("%d", lst->nbr);
-		if (lst->next)
-			printf(" =>");
-		lst = lst->next;
-	}
-	printf("\n");
-}
+	int	ra;
+	int	rb;
+}t_cost;
 
-void	printlist_index(t_list *lst)
+typedef struct s_list
 {
-	if (!lst)
-		printf("empty!");
-	while (lst)
-	{
-		printf("%d", lst->index);
-		if (lst->next)
-			printf(" =>");
-		lst = lst->next;
-	}
-	printf("\n");
-}
+	int				nbr;
+	int				index;
+	int				pos;
+	int				total_cost;
+	t_cost			cost;
+	int				info;
+	struct s_list	*next;
+	struct s_list	*prev;
+}t_list;
+
+typedef struct s_nbr
+{
+	int	nbr;
+	int	index;
+	int	rotate;
+	int	info;
+}t_nbr;
+
+#endif

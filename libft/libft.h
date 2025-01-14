@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 14:48:37 by ayoub             #+#    #+#             */
-/*   Updated: 2024/11/14 12:32:34 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/14 12:57:48 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ int		ft_isdigit(int c);
 int		ft_isprint(int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
+int		ft_abs_val(int val);
+int		ft_min(int a, int b);
+int		ft_max(int a, int b);
+int		ft_abs_val(int val);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
@@ -59,6 +63,7 @@ typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
+	struct s_list	*prev;
 }	t_list;
 
 t_list	*ft_lstnew(void *content);

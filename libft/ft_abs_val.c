@@ -1,39 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_lst.c                                      :+:      :+:    :+:   */
+/*   ft_abs_val.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 16:12:28 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/14 16:14:06 by aykrifa          ###   ########.fr       */
+/*   Created: 2025/01/14 12:58:21 by aykrifa           #+#    #+#             */
+/*   Updated: 2025/01/14 12:58:28 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-void	ft_printlist(t_list *lst)
+int	ft_abs_val(int val)
 {
-	while (lst)
-	{
-		printf("%d", lst->nbr);
-		if (lst->next)
-			printf(" =>");
-		lst = lst->next;
-	}
-	printf("\n");
-}
-
-void	printlist_index(t_list *lst)
-{
-	if (!lst)
-		printf("empty!");
-	while (lst)
-	{
-		printf("%d", lst->index);
-		if (lst->next)
-			printf(" =>");
-		lst = lst->next;
-	}
-	printf("\n");
+	if (val < 0)
+		return (-val);
+	return (val);
 }
