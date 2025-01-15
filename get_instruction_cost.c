@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:58:17 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/14 17:58:45 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/15 09:17:48 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	init_target_cost(t_list *lst, t_list *node, int size)
 	t_nbr	min;
 	t_nbr	max;
 	int		i;
-	t_list	*last_node;
 
 	i = 1;
 	min = set_min(lst);

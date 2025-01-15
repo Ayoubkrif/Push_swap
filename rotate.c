@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 17:09:28 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/11 18:57:54 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/15 15:12:33 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,37 @@ static void	rotate(t_list **lst)
 	ft_lstadd_back(lst, temp);
 }
 
-void	ra(t_list **lst_a, int *count, t_cost *instruction)
+void	ra(t_list **lst_a, int mode, t_cost *instruction)
 {
 	if (instruction)
 		instruction->ra--;
-	rotate(lst_a);
-	printf("ra\n");
-	*count += 1;
+	if (*lst_a)
+		rotate(lst_a);
+	if (mode)
+		ft_printf("ra\n");
 }
 
-void	rb(t_list **lst_b, int *count, t_cost *instruction)
+void	rb(t_list **lst_b, int mode, t_cost *instruction)
 {
 	if (instruction)
 		instruction->rb--;
-	rotate(lst_b);
-	printf("rb\n");
-	*count += 1;
+	if (*lst_b)
+		rotate(lst_b);
+	if (mode)
+		ft_printf("rb\n");
 }
 
-void	rr(t_list **lst_a, t_list **lst_b, int *count, t_cost *instruction)
+void	rr(t_list **lst_a, t_list **lst_b, int mode, t_cost *instruction)
 {
 	if (instruction)
 	{
 		instruction->rb--;
 		instruction->ra--;
 	}
-	rotate(lst_b);
-	rotate(lst_a);
-	printf("rr\n");
-	*count += 1;
+	if (*lst_b)
+		rotate(lst_b);
+	if (*lst_a)
+		rotate(lst_a);
+	if (mode)
+		ft_printf("rr\n");
 }

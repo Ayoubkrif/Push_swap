@@ -1,6 +1,6 @@
-shuf -i 1-1000 -n 1 =ARG
+#shuf -i 1-1000 -n 1 =ARG
 #echo -n "1 4 0 3 2" > list.txt
-cc *.c libft/ft_atoi.c libft/ft_isdigit.c -g3 && ./a.out
+#cc *.c libft/ft_atoi.c libft/ft_isdigit.c -g3 && ./a.out
 
 : <<'COMMENT'
 shuf -i 1-1000 -n 1 | tr "\n" " " > list.txt
@@ -102,7 +102,7 @@ cc *.c libft/ft_atoi.c libft/ft_isdigit.c -g3 && ./a.out
 COMMENT
 
 
-: <<'COMMENT'
+#: <<'COMMENT'
 for i in {0..4}; do
   for j in {0..4}; do
     for k in {0..4}; do
@@ -112,13 +112,12 @@ for i in {0..4}; do
                 "$j" != "$k" && "$j" != "$l" && "$j" != "$m" && \
                 "$k" != "$l" && "$k" != "$m" && \
                 "$l" != "$m" ]]; then
-            echo -n "$i $j $k $l $m" > list.txt
-            cc *.c libft/ft_atoi.c libft/ft_isdigit.c -g3 && ./a.out
+						  ARG="$i $j $k $l $m"; ./push_swap $(ARG) | ./checker $(ARG)
           fi
         done
       done
     done
   done
 done
-COMMENT
+#COMMENT
 

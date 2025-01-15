@@ -6,7 +6,7 @@
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:39:12 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/14 17:59:58 by aykrifa          ###   ########.fr       */
+/*   Updated: 2025/01/15 10:32:45 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	parse_error(t_list **lst)
 {
 	if (*lst)
 		ft_lstclear(lst);
-	printf("error\n");
+	write(2, "Error\n", 6);
 	return (1);
 }
 
@@ -72,14 +72,16 @@ int	create_list(char **arg, t_list **lst, int ac)
 {
 	t_list	*node;
 	int		i;
+	long	nb;
 
 	i = 0;
 	while (arg[i])
 	{
 		if (!is_number(arg[i]))
 			return (free_and_exit(0, ac, arg));
-		node = ft_lstnew(ft_atoi(arg[i]));
-		if (!node)
+		nb = ft_atol(arg[i]);
+		node = ft_lstnew((int)nb);
+		if (!node || nb < -2147483648 || nb > 2147483647)
 			return (free_and_exit(0, ac, arg));
 		ft_lstadd_back(lst, node);
 		i++;

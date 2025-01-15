@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_lst.c                                      :+:      :+:    :+:   */
+/*   check_format.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aykrifa <aykrifa@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 16:12:28 by aykrifa           #+#    #+#             */
-/*   Updated: 2025/01/15 09:14:25 by aykrifa          ###   ########.fr       */
+/*   Created: 2024/11/19 16:14:49 by aykrifa           #+#    #+#             */
+/*   Updated: 2024/11/19 16:15:55 by aykrifa          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "ft_printf.h"
 
-void	ft_printlist(t_list *lst)
+t_conversion	ft_is(const char c)
 {
-	while (lst)
-	{
-		ft_printf("%d", lst->nbr);
-		if (lst->next)
-			ft_printf(" =>");
-		lst = lst->next;
-	}
-	ft_printf("\n");
-}
-
-void	printlist_index(t_list *lst)
-{
-	if (!lst)
-		ft_printf("empty!\n");
-	while (lst)
-	{
-		ft_printf("%d", lst->index);
-		if (lst->next)
-			ft_printf(" =>");
-		lst = lst->next;
-	}
-	ft_printf("\n");
+	if (c == 'c')
+		return (CHARACTER);
+	if (c == 'i' || c == 'd')
+		return (INTEGER);
+	if (c == 's')
+		return (STRING);
+	if (c == 'u')
+		return (UNSIGNED_INTEGER);
+	if (c == 'p')
+		return (POINTER_ADDR);
+	if (c == '%')
+		return (PERCENT);
+	if (c == 'x')
+		return (HEXA_LOW);
+	if (c == 'X')
+		return (HEXA_UP);
+	return (NONE);
 }
